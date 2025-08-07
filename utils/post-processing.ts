@@ -19,7 +19,7 @@ type NormalizedEvent = InputEvent & {
   category: string;
 };
 
-const BATCH_SIZE = 30;
+const BATCH_SIZE = 15;
 
 function chunk<T>(arr: T[], size: number): T[][] {
   const res: T[][] = [];
