@@ -133,7 +133,7 @@ export async function normalizeEvents(
   return allResults;
 }
 
-(async () => {
+/* (async () => {
   await normalizeEvents([
     {
       title: "Minigolfe indoor de 18 buracos com campos de luz ultravioleta",
@@ -152,4 +152,4 @@ export async function normalizeEvents(
         "https://agendaculturalporto.org/wp-content/uploads/2025/07/HA-FEST-2025-em-Amarante-240x300.jpg",
     },
   ]);
-})();
+})(); */

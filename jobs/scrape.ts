@@ -12,14 +12,15 @@ const supabase = createClient(
 );
 
 for (const { source, city, fn } of scrapers) {
-  console.log(`Scraping ${source}...`);
+  console.log(`\n--- Scraping ${source} ---`);
 
   const events = await fn();
 
   const normalizedEvents = await normalizeEvents(events);
 
+  let upserted = 0;
   for (const event of normalizedEvents) {
-    await supabase.from("events").upsert(
+    const { error } = await supabase.from("events").upsert(
       {
         title: event.title,
         startDate: event.startDate,
@@ -33,5 +34,14 @@ for (const { source, city, fn } of scrapers) {
       },
       { onConflict: "url" }
     );
+    if (error) {
+      console.warn(`[${source}] Failed to upsert event: ${event.title}`, error);
+    } else {
+      upserted++;
+    }
   }
+
+  console.log(
+    `[${source}] Upserted ${upserted}/${normalizedEvents.length} events to database.`
+  );
 }
