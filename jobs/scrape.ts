@@ -35,13 +35,13 @@ for (const { source, city, fn } of scrapers) {
       { onConflict: "url" }
     );
     if (error) {
-      console.warn(`[${source}] Failed to upsert event: ${event.title}`, error);
+      console.warn(`Failed to upsert event: ${event.title}`, error);
     } else {
       upserted++;
     }
   }
 
   console.log(
-    `[${source}] Upserted ${upserted}/${normalizedEvents.length} events to database.`
+    `Upserted ${upserted}/${normalizedEvents.length} events to database.`
   );
 }
