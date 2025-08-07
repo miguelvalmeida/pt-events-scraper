@@ -1,4 +1,4 @@
-name: scrape daily
+name: Daily events scraper
 
 on:
   schedule:
