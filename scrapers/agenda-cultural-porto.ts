@@ -11,7 +11,7 @@ export async function scrapeAgendaCulturalPorto() {
   const events = await page.$$eval(".mec-event-article", (cards) => {
     return cards.map((card) => {
       const titleEl = card.querySelector(".mec-event-title a");
-      const dateEl = card.querySelector(".mec-start-date-label");
+      const dateEl = card.querySelector(".mec-event-date");
       const locationEl = card.querySelector(".mec-grid-event-location");
       const urlEl = card.querySelector(".mec-booking-button");
       const imageEl = card.querySelector("img");

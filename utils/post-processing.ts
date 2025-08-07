@@ -19,7 +19,7 @@ type NormalizedEvent = InputEvent & {
   category: string;
 };
 
-const BATCH_SIZE = 15;
+const BATCH_SIZE = process.env.BATCH_SIZE ? Number(process.env.BATCH_SIZE) : 15;
 
 function chunk<T>(arr: T[], size: number): T[][] {
   const res: T[][] = [];
@@ -107,12 +107,20 @@ export async function normalizeEvents(
 /* (async () => {
   await normalizeEvents([
     {
-      title: "Museu do Vitral – Porto",
-      url: "https://agendaculturalporto.org/eventos/museu-do-vitral-porto/",
-      date: "07 Agosto 2025",
-      location: "Museu do Vitral, Rua de D. Hugo, n.º 2 a 6, 4050-305 Porto",
+      title: "Minigolfe indoor de 18 buracos com campos de luz ultravioleta",
+      url: "https://agendaculturalporto.org/eventos/minigolfe-indoor-de-18-buracos-com-campos-de-luz-ultravioleta/",
+      date: "07 Agosto 2025 - 22 Agosto 2030",
+      location: "Minigolf Porto, R. do Dr. Alfredo Magalhães 244000-265 Porto",
       image:
-        "https://agendaculturalporto.org/wp-content/uploads/2022/03/Museu-do-Vitral-300x257.jpg",
+        "https://agendaculturalporto.org/wp-content/uploads/2023/08/Minigolfe-indoor-de-18-buracos-com-campos-de-luz-ultravioleta-300x215.jpg",
+    },
+    {
+      title: "HÁ FEST! 2025 em Amarante",
+      url: "https://agendaculturalporto.org/eventos/ha-fest-2025-em-amarante/",
+      date: "08 - 17 Agosto 2025",
+      location: "Amarante, Distrito do Porto",
+      image:
+        "https://agendaculturalporto.org/wp-content/uploads/2025/07/HA-FEST-2025-em-Amarante-240x300.jpg",
     },
   ]);
 })(); */

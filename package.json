@@ -1,5 +1,5 @@
 {
-  "name": "pt-events-crawler",
+  "name": "pt-events-scraper",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
