@@ -15,15 +15,16 @@ jobs:
         with:
           node-version: 20
 
-      - name: install deps
+      - name: Install node dependencies
         run: npm ci
 
-      - name: install playwright deps
-        run: npx playwright install --with-deps
+      - name: Install playwright
+        run: npx playwright install chromium --with-deps
 
-      - name: run scraper
+      - name: Run scraper
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE: ${{ secrets.SUPABASE_SERVICE_ROLE }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+
         run: npx tsx jobs/scrape.ts
