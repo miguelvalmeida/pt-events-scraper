@@ -11,7 +11,7 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE!
 );
 
-for (const { source, fn } of scrapers) {
+for (const { source, city, fn } of scrapers) {
   console.log(`Scraping ${source}...`);
 
   const events = await fn();
@@ -29,6 +29,7 @@ for (const { source, fn } of scrapers) {
         url: event.url,
         category: event.category,
         source,
+        city,
       },
       { onConflict: "url" }
     );

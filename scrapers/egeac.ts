@@ -1,6 +1,7 @@
 import { chromium } from "playwright";
+import { writeFileSync } from "fs";
 
-export async function scrapeAgendaCulturalPorto() {
+export async function scrapeEgeac() {
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
 
@@ -28,9 +29,5 @@ export async function scrapeAgendaCulturalPorto() {
 
   await browser.close();
 
-  console.log(events);
-
   return events;
 }
-
-scrapeAgendaCulturalPorto();
