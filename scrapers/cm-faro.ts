@@ -1,7 +1,7 @@
 import { chromium } from "playwright";
 
 export async function scrapeCmFaro() {
-  const browser = await chromium.launch({ headless: false });
+  const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
 
   const BASE_URL = "https://www.cm-faro.pt";
