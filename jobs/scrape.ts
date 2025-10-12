@@ -19,7 +19,20 @@ for (const { source, city, fn } of scrapers) {
   const normalizedEvents = await normalizeEvents(events);
 
   let upserted = 0;
+  let skipped = 0;
   for (const event of normalizedEvents) {
+    // Skip events without valid startDate or endDate
+    if (
+      !event.startDate ||
+      !event.endDate ||
+      event.startDate.trim() === "" ||
+      event.endDate.trim() === ""
+    ) {
+      console.warn(`Skipping event without valid dates: ${event.title}`);
+      skipped++;
+      continue;
+    }
+
     const { error } = await supabase.from("events").upsert(
       {
         title: event.title,
@@ -42,6 +55,6 @@ for (const { source, city, fn } of scrapers) {
   }
 
   console.log(
-    `Upserted ${upserted}/${normalizedEvents.length} events to database.`
+    `Upserted ${upserted}/${normalizedEvents.length} events to database. Skipped ${skipped} events without valid dates.`
   );
 }

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "scrape": "tsx jobs/scrape"
+    "scrape": "tsx jobs/scrape",
+    "cleanup": "tsx jobs/cleanup"
   },
   "keywords": [],
   "author": "",

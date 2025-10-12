@@ -1,0 +1,26 @@
+name: Daily events cleanup
+
+on:
+  # schedule:
+    # - cron: "0 2 * * *" # todos os dias às 2h UTC
+  workflow_dispatch:
+
+jobs:
+  run-cleanup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install node dependencies
+        run: npm ci
+
+      - name: Run cleanup
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE: ${{ secrets.SUPABASE_SERVICE_ROLE }}
+
+        run: npx tsx jobs/cleanup.ts
