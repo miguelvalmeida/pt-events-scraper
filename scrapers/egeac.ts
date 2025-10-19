@@ -8,6 +8,27 @@ export async function scrapeEgeac() {
     waitUntil: "domcontentloaded",
   });
 
+  // Scroll to the bottom of the page to trigger lazy loading of images
+  await page.evaluate(async () => {
+    await new Promise((resolve) => {
+      let totalHeight = 0;
+      const distance = 100;
+      const timer = setInterval(() => {
+        const scrollHeight = document.body.scrollHeight;
+        window.scrollBy(0, distance);
+        totalHeight += distance;
+
+        if (totalHeight >= scrollHeight) {
+          clearInterval(timer);
+          resolve(undefined);
+        }
+      }, 100);
+    });
+  });
+
+  // Wait a bit more for images to load after scrolling
+  await page.waitForTimeout(2000);
+
   const events = await page.$$eval(".evento-card", (cards) => {
     return cards.map((card) => {
       const titleEl = card.querySelector(".h5");
