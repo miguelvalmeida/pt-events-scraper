@@ -1,8 +1,8 @@
 name: Daily events cleanup
 
 on:
-   schedule:
-    - cron: "0 2 * * *"
+  schedule:
+    - cron: "0 2 * * *" # every day at 2am UTC
   workflow_dispatch:
 
 jobs:
