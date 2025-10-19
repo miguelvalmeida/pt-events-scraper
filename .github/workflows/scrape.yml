@@ -2,7 +2,7 @@ name: Daily events scraper
 
 on:
   schedule:
-    - cron: "0 6 * * *" # every day at 6am UTC
+    - cron: "0 6 * * 1" # every Monday at 6am UTC
   workflow_dispatch:
 
 jobs:
