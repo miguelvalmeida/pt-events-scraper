@@ -26,8 +26,38 @@ export async function scrapeEgeac() {
     });
   });
 
-  // Wait a bit more for images to load after scrolling
-  await page.waitForTimeout(2000);
+  // Wait for images to load with a more robust approach
+  await page.waitForFunction(
+    () => {
+      const images = document.querySelectorAll(".evento-card img");
+      if (images.length === 0) return false;
+
+      let loadedImages = 0;
+      images.forEach((img) => {
+        const src = (img as HTMLImageElement).src;
+        // Check for actual image URLs (not placeholders) and that they're loaded
+        if (
+          src &&
+          src.includes("wp-content/uploads/") &&
+          !src.includes("placeholder") &&
+          (img as HTMLImageElement).complete &&
+          (img as HTMLImageElement).naturalHeight > 0
+        ) {
+          loadedImages++;
+        }
+      });
+
+      // Wait until at least 70% of images have loaded (higher threshold for CI)
+      return (
+        loadedImages >=
+        Math.min(images.length, Math.max(1, Math.floor(images.length * 0.7)))
+      );
+    },
+    { timeout: 30000 }
+  ); // Increased timeout for CI environment
+
+  // Additional wait to ensure all images are fully loaded
+  await page.waitForTimeout(3000);
 
   const events = await page.$$eval(".evento-card", (cards) => {
     return cards.map((card) => {
