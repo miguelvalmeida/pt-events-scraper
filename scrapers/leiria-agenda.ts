@@ -69,7 +69,3 @@ export async function scrapeLeiriaAgenda() {
 
   return allEvents;
 }
-
-scrapeLeiriaAgenda().then((events) => {
-  console.log(events);
-});
